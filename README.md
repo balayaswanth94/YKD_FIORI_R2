@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # YKD_FIORI_R2## Application Details v2
 |               |
 | ------------- |
@@ -42,3 +43,6 @@ An SAP Fiori application.
 1. Active NodeJS LTS (Long Term Support) version and associated supported NPM version.  (See https://nodejs.org)
 
 
+=======
+# YKD_FIORI_R2
+>>>>>>> 750b4af980a073391696064bd1f1a1c79cd081fe
