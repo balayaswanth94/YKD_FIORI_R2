@@ -3,33 +3,10 @@ ID: ztestp1-ext
 extends: comsapztestztestp1
 description: "Extension for environment-specific configuration"
 modules:
-- name: ztestp1-ext-destination-content
-  type: com.sap.application.content
-  requires:
-  - name: ztestp1-ext-destination-service
+  - name: comsapztestztestp1
     parameters:
-      content-target: true
-  - name: ztestp1-ext-repo-host
+      memory: 512M
+resources:
+  - name: comsapztestztestp1-destination-service
     parameters:
-      service-key:
-        name: ztestp1-ext-repo-host-key
-  - name: ztestp1-ext-uaa
-    parameters:
-      service-key:
-        name: ztestp1-ext-uaa-key
-  parameters:
-    content:
-      instance:
-        destinations:
-        - Name: ztestp1-ext_html_repo_host
-          ServiceInstanceName: ztestp1-ext-html5-service
-          ServiceKeyName: ztestp1-ext-repo-host-key
-          sap.cloud.service: ztestp1-ext
-        - Authentication: OAuth2UserTokenExchange
-          Name: ztestp1-ext_uaa
-          ServiceInstanceName: ztestp1-ext-xsuaa-service
-          ServiceKeyName: ztestp1-ext-uaa-key
-          sap.cloud.service: ztestp1-ext
-        existing_destinations_policy: update
-  build-parameters:
-    no-source: true
+      service-plan: lite
