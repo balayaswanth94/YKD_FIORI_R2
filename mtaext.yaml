@@ -3,92 +3,33 @@ ID: ztestp1-ext
 extends: comsapztestztestp1
 description: "Extension for environment-specific configuration"
 modules:
-- name: comsapztestztestp1-destination-content
+- name: ztestp1-ext-destination-content
   type: com.sap.application.content
   requires:
-  - name: comsapztestztestp1-destination-service
+  - name: ztestp1-ext-destination-service
     parameters:
       content-target: true
-  - name: comsapztestztestp1-repo-host
+  - name: ztestp1-ext-repo-host
     parameters:
       service-key:
-        name: comsapztestztestp1-repo-host-key
-  - name: comsapztestztestp1-uaa
+        name: ztestp1-ext-repo-host-key
+  - name: ztestp1-ext-uaa
     parameters:
       service-key:
-        name: comsapztestztestp1-uaa-key
+        name: ztestp1-ext-uaa-key
   parameters:
     content:
       instance:
         destinations:
-        - Name: comsapztestztestp1_html_repo_host
-          ServiceInstanceName: comsapztestztestp1-html5-service
-          ServiceKeyName: comsapztestztestp1-repo-host-key
-          sap.cloud.service: comsapztestztestp1
+        - Name: ztestp1-ext_html_repo_host
+          ServiceInstanceName: ztestp1-ext-html5-service
+          ServiceKeyName: ztestp1-ext-repo-host-key
+          sap.cloud.service: ztestp1-ext
         - Authentication: OAuth2UserTokenExchange
-          Name: comsapztestztestp1_uaa
-          ServiceInstanceName: comsapztestztestp1-xsuaa-service
-          ServiceKeyName: comsapztestztestp1-uaa-key
-          sap.cloud.service: comsapztestztestp1
+          Name: ztestp1-ext_uaa
+          ServiceInstanceName: ztestp1-ext-xsuaa-service
+          ServiceKeyName: ztestp1-ext-uaa-key
+          sap.cloud.service: ztestp1-ext
         existing_destinations_policy: update
   build-parameters:
     no-source: true
-- name: comsapztestztestp1-app-content
-  type: com.sap.application.content
-  path: .
-  requires:
-  - name: comsapztestztestp1-repo-host
-    parameters:
-      content-target: true
-  build-parameters:
-    build-result: resources
-    requires:
-    - artifacts:
-      - comsapztestztestp1.zip
-      name: comsapztestztestp1
-      target-path: resources/
-- name: comsapztestztestp1
-  type: html5
-  path: .
-  build-parameters:
-    build-result: dist
-    builder: custom
-    commands:
-    - npm install
-    - npm run build:cf
-    supported-platforms: []
-resources:
-- name: comsapztestztestp1-destination-service
-  type: org.cloudfoundry.managed-service
-  parameters:
-    config:
-      HTML5Runtime_enabled: true
-      init_data:
-        instance:
-          destinations:
-          - Authentication: NoAuthentication
-            Name: ui5
-            ProxyType: Internet
-            Type: HTTP
-            URL: https://ui5.sap.com
-          existing_destinations_policy: update
-      version: 1.0.0
-    service: destination
-    service-name: comsapztestztestp1-destination-service
-    service-plan: lite
-- name: comsapztestztestp1-uaa
-  type: org.cloudfoundry.managed-service
-  parameters:
-    path: ./xs-security.json
-    service: xsuaa
-    service-name: comsapztestztestp1-xsuaa-service
-    service-plan: application
-- name: comsapztestztestp1-repo-host
-  type: org.cloudfoundry.managed-service
-  parameters:
-    service: html5-apps-repo
-    service-name: comsapztestztestp1-html5-service
-    service-plan: app-host
-parameters:
-  deploy_mode: html5-repo
-  enable-parallel-deployments: true
